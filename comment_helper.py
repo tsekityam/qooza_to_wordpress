@@ -22,7 +22,7 @@ def get_comment(dom, blog_author):
     new_dom = str(dom).replace("</br>", "<br/>").replace("<br>", "<br/>")
     soup = BeautifulSoup(new_dom, "html.parser")
 
-    comments = []
+    comment_dom_strings = []
 
     for comment_dom in soup.find_all("table", id="comment"):
         prev_comment_id = "0"
@@ -71,23 +71,21 @@ def get_comment(dom, blog_author):
             comment_date_gmt = d.astimezone(pytz.utc).strftime("%Y-%m-%d %H:%M:%S")
             comment_id = int(datetime.timestamp(d))
             prev_comment_id = comment_id
-            comments.append({"comment_author": comment_author,
-                             "comment_author_url": comment_author_url,
-                             "comment_content": comment_content,
-                             "comment_date": comment_date,
-                             "comment_date_gmt": comment_date_gmt,
-                             "comment_id": comment_id,
-                             "comment_parent": comment_parent})
-    comment_dom_string = ""
+            comment_dom_strings.append(comment_template.format(comment_author=comment_author,
+                                                               comment_author_url=comment_author_url,
+                                                               comment_content=comment_content,
+                                                               comment_date=comment_date,
+                                                               comment_date_gmt=comment_date_gmt,
+                                                               comment_id=comment_id,
+                                                               comment_parent=comment_parent))
+
+    # remove duplicated comment
+    comment_dom_strings = list(dict.fromkeys(comment_dom_strings))
+
+    result_dom = ""
     comment_count = 0
-    for comment in comments:
-        comment_dom_string += comment_template.format(comment_author=comment["comment_author"],
-                                                      comment_author_url=comment["comment_author_url"],
-                                                      comment_content=comment["comment_content"],
-                                                      comment_date=comment["comment_date"],
-                                                      comment_date_gmt=comment["comment_date_gmt"],
-                                                      comment_id=comment["comment_id"],
-                                                      comment_parent=comment["comment_parent"])
+    for comment_dom_string in comment_dom_strings:
+        result_dom += comment_dom_string
         comment_count += 1
 
-    return comment_dom_string, comment_count
+    return result_dom, comment_count

@@ -26,7 +26,7 @@ There is a chance that the Qooza backup file contains invalid HTML syntax. We ne
 
 e.g. `<s{{comment}}></s>` can be found in my backup file. I need to correct it as `<s>{{comment}}</s>` before the run.
 
-### Incorrect comment count
+### Comment count in the output file may be less than that of claimed
 The backup file contains the total number of the comments in the file.
 
 ```html
@@ -50,7 +50,10 @@ The backup file contains the total number of the comments in the file.
 
 `comment_count` is the number of comments post by the visitors of the blog. `reply_count` is the number of the comments that the author replied to comments. The total number of comments in the backup file should be `comment_count` + `reply_count`.
 
-However, I found that the number of comments in my backup file doesn't match the sum of the numbers. There are missing comments in the backup file. The program will give you a warning if it happens
+However, there are two reasons that can lead to the final comment count in the output file doesn't match the sum of two numbers.
 
-### Duplicated comments
-There are two duplicated comments in my backup file. WordPress may deduplicated it during import.
+First, these two numbers may be incorrect. I found that the number of replies in my backup file doesn't match the numbers of replies that it claimed. I have checked the numbers in Qooza, and that number does not match the one claimed in the file. It is very likely that the file contains a wrong number.
+
+Second, the backup file may contains duplicated comments. If there are two replies on a single comment, this comment will be duplicated in the backup file. These duplicated comment will be deduplicated during the process.
+
+Because of these two reason, the final comment count may be different from that of backup file. If it happens, a warning will be printed.

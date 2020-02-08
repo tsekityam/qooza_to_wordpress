@@ -130,8 +130,9 @@ def main(argv):
         exit(1)
 
     if actual_comment_count != expected_comment_count:
-        print("Warning: failed to extract all comments: {expected} expected but only found {actual}.".format(
-            expected=expected_comment_count, actual=actual_comment_count))
+        print("Warning: comment count in the output file is different from expected: " +
+              "{expected} expected but only found {actual}.".format(
+                  expected=expected_comment_count, actual=actual_comment_count))
 
     result = ""
     for x in range(0, actual_blog_count):
