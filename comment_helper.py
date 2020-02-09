@@ -63,9 +63,7 @@ def get_comment(dom, blog_author):
                     .find_next("span")
                 date = date_dom.text[len("Posted at "):]
 
-            if date == "":
-                print("something")
-            d = datetime.strptime(date, '%Y-%m-%d %H:%M:%S %p')
+            d = datetime.strptime(date, '%Y-%m-%d %I:%M:%S %p')
 
             comment_date = d.strftime("%Y-%m-%d %H:%M:%S")
             comment_date_gmt = d.astimezone(pytz.utc).strftime("%Y-%m-%d %H:%M:%S")
