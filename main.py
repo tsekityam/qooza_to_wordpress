@@ -8,19 +8,20 @@ import pytz
 import comment_helper
 
 prefix = """
-    <rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.1/">
-      <channel>
-        <title>{title}</title>
-        <wp:wxr_version>1.1</wp:wxr_version>
-        <wp:multisite>
-          <wp:xanga_user_id>{username}</wp:xanga_user_id>
-          <wp:site_title>{title}</wp:site_title>
-        </wp:multisite>
-        <wp:author>
-          <wp:author_login>{username}</wp:author_login>
-          <wp:author_display_name>{username}</wp:author_display_name>
-        </wp:author>
-    """
+<rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.1/">
+  <channel>
+    <title>{title}</title>
+    <wp:wxr_version>1.1</wp:wxr_version>
+    <wp:multisite>
+      <wp:xanga_user_id>{username}</wp:xanga_user_id>
+      <wp:site_title>{title}</wp:site_title>
+    </wp:multisite>
+    <wp:author>
+      <wp:author_login>{username}</wp:author_login>
+      <wp:author_display_name>{username}</wp:author_display_name>
+      <wp:author_email>{username}@qooza.hk</wp:author_email>
+    </wp:author>
+"""
 
 blog_template = """
     <item>
